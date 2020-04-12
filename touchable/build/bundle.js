@@ -405,9 +405,9 @@ var app = (function () {
   		drop,
   		touchstart,
   		touchmove,
+  		touchend,
   		which_drop_nodes,
   		_dataTransfer,
-  		touchend,
   		set_position,
   		div_binding
   	];
@@ -423,7 +423,8 @@ var app = (function () {
   			drop: 3,
   			touchstart: 4,
   			touchmove: 5,
-  			which_drop_nodes: 6
+  			touchend: 6,
+  			which_drop_nodes: 7
   		});
   	}
 
@@ -435,8 +436,12 @@ var app = (function () {
   		return this.$$.ctx[5];
   	}
 
-  	get which_drop_nodes() {
+  	get touchend() {
   		return this.$$.ctx[6];
+  	}
+
+  	get which_drop_nodes() {
+  		return this.$$.ctx[7];
   	}
   }
 
