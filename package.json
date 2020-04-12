@@ -4,10 +4,10 @@
   "description": "A Svelte example that enables D'n'D API to work with Touch Event",
   "main": "src/index.js",
   "scripts": {
-    "dev": "run-p watch serve",
-    "build": "rollup -c rollup.config.js",
+    "dev": "run-p watch watch:touchable serve",
     "serve": "serve public",
-    "watch": "rollup -c rollup.config.js --watch",
+    "watch": "rollup -c rollup/not.config.js --watch",
+    "watch:touchable": "rollup -c rollup/touchable.config.js --watch",
     "deploy": "gh-pages -d public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

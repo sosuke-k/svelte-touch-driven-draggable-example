@@ -1,5 +1,6 @@
 # Build
-public/build
+public/not/build
+public/touchable/build
 
 # Logs
 logs

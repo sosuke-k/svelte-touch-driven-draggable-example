@@ -4,9 +4,9 @@ import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 
 module.exports = {
-  input: 'src/index.js',
+  input: 'src/touchable-index.js',
   output: {
-    file: 'public/build/bundle.js',
+    file: 'public/touchable/build/bundle.js',
     format: 'iife',
     name: 'app'
   },

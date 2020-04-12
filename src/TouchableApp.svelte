@@ -4,16 +4,22 @@
     onMount
   } from 'svelte';
 
+  import Draggable from './Draggable.svelte';
+
   const N = 30;
   let cards = [...Array(N).keys()].map(i => ('000' + (i + 1)).slice(-3));
   let reds = [];
   let blues = [];
 
+  // Touchable
+  let drag;
+  let drop_nodes = [];
+
   onMount(async () => {
     console.log("onMount");
   });
 
-  function dragstart(e, target, i) {
+  let dragstart = function(e, target, i) {
     console.log("dragstart", i);
     let index = parseInt(target.getAttribute("index"));
     e.dataTransfer.setData("index", index);
@@ -24,7 +30,7 @@
     e.dataTransfer.dropEffect = 'move';
   }
 
-  function drop(e, target) {
+  let drop = function(e, target) {
     console.log("drop");
     e.preventDefault();
 
@@ -107,6 +113,9 @@
   <div class="half flex horizontal wrap">
     {#each cards as card, card_i}
     <div class="card border gray flex center" index={card_i} draggable={true}
+      on:touchstart={e => drag.touchstart(e, e.target, card_i)}
+      on:touchmove={e => drag.touchmove(e, e.target, card_i)}
+      on:touchend={e => drag.touchend(e, e.target, card_i)}
       on:dragstart={e => dragstart(e, e.target, card_i)}>
       {card}
     </div>
@@ -114,6 +123,7 @@
   </div>
   <div class="half flex horizontal">
     <div class="half red flex horizontal wrap"
+      bind:this={drop_nodes[0]}
       on:dragover={dragover}
       on:drop={e => drop(e, e.target)}>
       {#each reds as card, card_i}
@@ -121,6 +131,7 @@
       {/each}
     </div>
     <div class="half blue flex horizontal wrap"
+      bind:this={drop_nodes[1]}
       on:dragover={dragover}
       on:drop={e => drop(e, e.target)}>
       {#each blues as card, card_i}
@@ -129,3 +140,5 @@
     </div>
   </div>
 </div>
+
+<Draggable bind:this={drag} bind:drop_nodes bind:dragstart bind:drop />
